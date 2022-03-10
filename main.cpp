@@ -11,6 +11,13 @@ using namespace std;
 // class for a player
 class Player {
 public:
+    // default constructor
+    Player() {
+        this->player_num = -1;
+        this->arrive_hour = -1;
+        this->coin = -1;
+    }
+
     Player(int player_num, int arrive_hour, int coin) {
         this->player_num = player_num;
         this->arrive_hour = arrive_hour;
@@ -22,6 +29,17 @@ public:
     int arrive_hour;
     int coin;
 };
+
+// create player list
+vector<Player> create_player_list(){
+    // create player
+    vector<Player> player_list;
+    for(int i=1;i<=5;i++){
+        Player p(i,0,0);
+        player_list.push_back(p);
+    }
+    return player_list;
+}
 
 // get integer function for coin counts & arrive hours (foolproof)
 int get_integer_input(const string& info) {
@@ -53,44 +71,93 @@ vector<int> get_player_info(const string& title, const string& info) {
 }
 
 // assign each player info to its class
-void assign_info_to_player(vector<int> arrived_hour, vector<int> coin, vector<Player>& player_list) {
+void assign_info_to_player_list(vector<int> arrived_hour, vector<int> coin, vector<Player>& player_list) {
     for (int i = 0; i < 5; i++) {
         player_list[i].arrive_hour = arrived_hour[i];
         player_list[i].coin = coin[i];
     }
 }
 
-// push function
+// push function (from rear)
+void push(Player*& line_queue, Player push_player) {
+    for(int i=0;i<5;i++){
+        if(line_queue[i].player_num==-1){
+            line_queue[i].player_num = push_player.player_num;
+            line_queue[i].arrive_hour = push_player.arrive_hour;
+            line_queue[i].coin = push_player.coin;
+            return;
+        }
+        else;
+    }
+}
 
-// pop function
+// pop function (from begin)
+void pop(Player*& line_queue){
+    // move all player info before an index & reset the last one
+    for(int i=0;i<5;i++){
+        if(i==4){
+            line_queue[i].player_num=-1;
+            line_queue[i].arrive_hour = -1;
+            line_queue[i].coin = -1;
+        }
+        else{
+            line_queue[i]=line_queue[i+1];
+        }
+    }
+}
 
 // start analyze & show result
 
 
 int main() {
 
-    // create player
-    Player p1(1, 0, 0);
-    Player p2(2, 0, 0);
-    Player p3(3, 0, 0);
-    Player p4(4, 0, 0);
-    Player p5(5, 0, 0);
-
     // build player vector
-    vector<Player> player_list;
-    player_list.push_back(p1);
-    player_list.push_back(p2);
-    player_list.push_back(p3);
-    player_list.push_back(p4);
-    player_list.push_back(p5);
+    vector<Player> player_list = create_player_list();
 
     // get player info & assign them to player info
     vector<int> player_arrive_hour = get_player_info("=====Player Arrived Hour=====", "Player ");
     vector<int> player_own_coin = get_player_info("=====Player Owned Coin=====", "Player ");
-    assign_info_to_player(player_arrive_hour, player_own_coin, player_list);
+    assign_info_to_player_list(player_arrive_hour, player_own_coin, player_list);
 
     //start analyze result
-    Player line_queue[5] = {Player(0,0,0),Player(0,0,0),Player(0,0,0),Player(0,0,0),Player(0,0,0)};
+    auto* line_queue = new Player[5];
+
+
+/*    for(int i=0;i<5;i++){
+        cout<<"==============\n";
+        cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
+    }
+    push(line_queue, player_list[1]);
+    for(int i=0;i<5;i++){
+        cout<<"==============\n";
+        cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
+    }
+    push(line_queue, player_list[2]);
+    for(int i=0;i<5;i++){
+        cout<<"==============\n";
+        cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
+    }
+    push(line_queue, player_list[3]);
+    for(int i=0;i<5;i++){
+        cout<<"==============\n";
+        cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
+    }
+    push(line_queue, player_list[4]);
+    for(int i=0;i<5;i++){
+        cout<<"==============\n";
+        cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
+    }
+    pop(line_queue);
+    for(int i=0;i<5;i++){
+        cout<<"==============\n";
+        cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
+    }
+    push(line_queue, player_list[0]);
+    for(int i=0;i<5;i++){
+        cout<<"==============\n";
+        cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
+    }*/
+
 
     system("pause");
     return 0;
