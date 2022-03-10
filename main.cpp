@@ -123,40 +123,31 @@ int main() {
     auto* line_queue = new Player[5];
 
 
-/*    for(int i=0;i<5;i++){
-        cout<<"==============\n";
+/*    push(line_queue, player_list[0]);
+    for(int i=0;i<5;i++){
         cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
     }
+    cout<<"==============\n";
     push(line_queue, player_list[1]);
     for(int i=0;i<5;i++){
-        cout<<"==============\n";
         cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
     }
-    push(line_queue, player_list[2]);
-    for(int i=0;i<5;i++){
-        cout<<"==============\n";
-        cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
-    }
-    push(line_queue, player_list[3]);
-    for(int i=0;i<5;i++){
-        cout<<"==============\n";
-        cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
-    }
-    push(line_queue, player_list[4]);
-    for(int i=0;i<5;i++){
-        cout<<"==============\n";
-        cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
-    }
+    cout<<"==============\n";
     pop(line_queue);
     for(int i=0;i<5;i++){
-        cout<<"==============\n";
         cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
     }
-    push(line_queue, player_list[0]);
+    cout<<"==============\n";
+    pop(line_queue);
     for(int i=0;i<5;i++){
-        cout<<"==============\n";
         cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
-    }*/
+    }
+    cout<<"==============\n";
+    push(line_queue, player_list[4]);
+    for(int i=0;i<5;i++){
+        cout<<line_queue[i].player_num<<": "<<line_queue[i].arrive_hour<<"/"<<line_queue[i].coin<<endl;
+    }
+    cout<<"==============\n";*/
 
 
     system("pause");
