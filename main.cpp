@@ -161,32 +161,33 @@ void serve_player(Player*& line_queue, int current_hour, vector<Player>& player_
     current_player_address_in_player_list(line_queue[0].player_num, player_list, current_player);
     if (current_player->second_time && current_player->coin > 1) {
         pop(line_queue);
-        current_player->coin -= 1;
         current_player->second_time = false;
         current_player->arrive_hour = current_hour + 1;
     } else if (current_player->coin == 1) {
         pop(line_queue);
-        current_player->coin -= 1;
         current_player->arrive_hour = -1;
     } else {
-        current_player->coin -= 1;
         current_player->second_time = true;
     }
+    current_player->coin -= 1;
 }
 
 // start analyze & show result
 void analyze_and_show_result(Player*& line_queue, vector<Player>& player_list) {
     int count = 1, current_hour = 0;
     int total_count = get_total_counts(player_list);
-    cout << "=====Line Up Result=====\n";
+    cout << "=======Line Up Result=======\n";
     while (count <= total_count) {
         find_who_arrive_and_arrange_to_queue(player_list, current_hour, line_queue);
         if (no_one_wait_in_line(line_queue))beautiful_output(current_hour, Player(-1, -1, -1, false));
-        else serve_player(line_queue, current_hour, player_list);
+        else {
+            serve_player(line_queue, current_hour, player_list);
+            count++;
+        }
         current_hour++;
-        count++;
     }
-    cout << "========================\n";
+    cout<<"\nThe line up is over !!\n";
+    cout << "===========================\n";
 }
 
 
@@ -196,10 +197,8 @@ int main() {
     vector<Player> player_list = create_player_list();
 
     // get player info & assign them to player info
-    /* vector<int> player_arrive_hour = get_player_info("=====Player Arrived Hour=====", "Player ");
-     vector<int> player_own_coin = get_player_info("=====Player Owned Coin=====", "Player ");*/
-    vector<int> player_arrive_hour = {0, 1, 2, 3, 4};
-    vector<int> player_own_coin = {5, 3, 1, 2, 3};
+    vector<int> player_arrive_hour = get_player_info("=====Player Arrived Hour=====", "Player ");
+    vector<int> player_own_coin = get_player_info("======Player Owned Coin======", "Player ");
     assign_data_to_player_list(player_arrive_hour, player_own_coin, player_list);
 
     //start analyze result
